@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package ftpclient;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -13,10 +9,12 @@ public class FTPClientJava {
     public static void main(String[] args) {
         String server = "ftp.rediris.es";
         int port = 21;
-
         FTPClient ftpClient = new FTPClient();
 
         try {
+            // Establecer codificación
+            ftpClient.setControlEncoding("UTF-8");
+
             // Conectar al servidor FTP
             ftpClient.connect(server, port);
 
@@ -27,6 +25,9 @@ public class FTPClientJava {
                 ftpClient.disconnect();
                 System.exit(1);
             }
+
+            // Activar modo pasivo
+            ftpClient.enterLocalPassiveMode();
 
             // Iniciar sesión como usuario anónimo
             boolean success = ftpClient.login("anonymous", "");
